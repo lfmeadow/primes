@@ -37,6 +37,8 @@ main(int argc, char **argv)
   }
 
   uint64_t allprimes = 0;
+  if (argvals.verbose)
+    printf("nblocks=%lu\n", nblocks);
   for (uint64_t block = rank; block < nblocks; block += nranks) {
     // this needs to be fixed for overflow
     uint64_t mystart = m1 + blocksize * block;

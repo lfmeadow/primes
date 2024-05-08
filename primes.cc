@@ -24,6 +24,7 @@ Primes::Primes(uint64_t start, uint64_t end) : m1(start), m2(end), n(m2-m1+1),
 Primes::~Primes()
 {
   HIP_CHECK(hipFree(counts));
+  HIP_CHECK(hipFree(bindices));
 }
 
 void
@@ -176,7 +177,7 @@ mark_primes(
     const uint64_t icnt = cnt <= range ? cnt : range;
     range -= icnt;
     for (uint64_t offs = 0;  offs < icnt; ++offs) {
-#ifdef DEBUG
+#ifdef CHECK
         if (bidx >= nbits) {
           printf(
     "idx=%u i=%lu offs=%lu cnt=%lu bidx=%lu nbits=%lu range=%lu BOTCH\n",

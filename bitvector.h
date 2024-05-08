@@ -64,8 +64,8 @@ public:
 
   // clear (set an element to false)
   __device__ void clr(uint64_t idx) {
-#ifdef DEBUG
-    if (idx >= nbits) {
+#ifdef CHECK
+    if (idx >= nbits || idx < 0) {
       printf("BV clr Botch: idx=%lu nbits=%lu\n", idx, nbits);
       return;
     }
